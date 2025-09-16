@@ -1,7 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:AvaloniaFinder.ViewModels"
-        xmlns:models="using:AvaloniaFinder.Models"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="9`00" d:DesignHeight="450"
@@ -26,7 +25,7 @@
                 </TreeView.Styles>
                 <TreeView.ItemTemplate>
                     <TreeDataTemplate ItemsSource="{Binding SubObjects}">
-                        <TextBlock Text="{Binding Path}"/>
+                        <TextBlock Text="{Binding Title}"/>
                     </TreeDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
@@ -34,18 +33,20 @@
 
         <ScrollViewer Grid.Column="1" Grid.Row="0">
             <StackPanel>
-                <TextBlock Text="{Binding SelectedFinderObject.Path}"/>
+                <TextBlock Text="{Binding SelectedDrive.Name, StringFormat='Диск: {0}'}"/>
+                <TextBlock Text="{Binding SelectedDrive.TotalSize, StringFormat='Общий объем: {0} bytes'}"/>
+                <TextBlock Text="{Binding SelectedDrive.TotalFreeSpace, StringFormat='Свободно: {0} bytes'}"/>
+                <TextBlock Text="{Binding SelectedDrive.DriveType, StringFormat='Тип диска: {0}'}"/>
             </StackPanel>
         </ScrollViewer>
 
-        <ScrollViewer Grid.Column="1" Grid.Row="1">
+        <ScrollViewer Grid.Column="1" Grid.Row="1" >
             <StackPanel>
-                <TextBlock Text="{Binding SelectedFinderObject.Path}"/>
+                <TextBlock Text="{Binding SelectedFinderObjectInfo.Name, StringFormat='Имя: {0}'}"/>
+                <TextBlock Text="{Binding SelectedFinderObjectInfo.CreationTime, StringFormat='Создан: {0:dd.MM.yyyy HH:mm:ss}'}"/>
+                <TextBlock Text="{Binding SelectedFinderObjectInfo.LastWriteTime, StringFormat='Изменен: {0:dd.MM.yyyy HH:mm:ss}'}"/>
+                <TextBlock Text="{Binding SelectedFinderObjectInfo.FullName, StringFormat='Путь: {0}'}"/>
             </StackPanel>
         </ScrollViewer>
-
-
-
     </Grid>
-    
 </Window>

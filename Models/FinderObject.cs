@@ -7,7 +7,22 @@ namespace AvaloniaFinder.Models;
 public class FinderObject : ObservableObject
 {
     public string Path { get; }
-    public bool IsDirectory { get; }
+
+    public string? Title { get {
+        if (File.Exists(Path))
+        {
+            return new FileInfo(Path).Name;
+        }
+        if (Directory.Exists(Path))
+        {
+            return new DirectoryInfo(Path).Name;
+        }
+
+        return null;
+        }
+    }
+
+public bool IsDirectory { get; }
     public ObservableCollection<FinderObject> SubObjects { get; } = new();
 
     private bool _isLoaded;
@@ -63,28 +78,27 @@ public class FinderObject : ObservableObject
             ReturnSpecialDirectories = false
         };
 
-        try
+
+        foreach (var directory in Directory.EnumerateDirectories(Path, "*", options))
         {
-            foreach (var directory in Directory.EnumerateDirectories(Path, "*", options))
+            try
             {
+                //SubObjects.Add(new FinderObject(new DirectoryInfo(directory).Name));
                 SubObjects.Add(new FinderObject(directory));
             }
-        }
-        catch 
-        {
-            // ignore
+             catch {}
+
         }
 
-        try
+        
+        foreach (var file in Directory.EnumerateFiles(Path, "*", options))
         {
-            foreach (var file in Directory.EnumerateFiles(Path, "*", options))
+            try
             {
                 SubObjects.Add(new FinderObject(file));
             }
-        }
-        catch
-        {
-            // ignore
+            catch {}
+
         }
     }
 }

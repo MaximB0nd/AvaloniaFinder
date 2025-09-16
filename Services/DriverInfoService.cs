@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using AvaloniaFinder.Models;
 
 namespace AvaloniaFinder.Services;
@@ -26,4 +27,30 @@ class DriverInfoService
         return finderObjects;
 
     }
+
+    public DriveInfo GetParentDiskInfo(FinderObject finderObject)
+    {
+        string? rootDirectory = Path.GetPathRoot(finderObject.Path);
+   
+        DriveInfo drive = new DriveInfo(rootDirectory);
+    
+        return drive;
+    }
+
+    public FileSystemInfo? GetObjectInfo(string? path) {
+        if (path is null)
+        {
+            return null;
+        }
+        if (File.Exists(path))
+        {
+            return new FileInfo(path);
+        }
+        if (Directory.Exists(path))
+        {
+            return new DirectoryInfo(path);
+        }
+        return null;
+    }
+
 }
