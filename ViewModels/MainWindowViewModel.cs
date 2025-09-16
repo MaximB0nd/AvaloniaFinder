@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using AvaloniaFinder.Models;
 using AvaloniaFinder.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,6 +9,9 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty]
     private ObservableCollection<FinderObject> _finderObjects;
+
+    [ObservableProperty]
+    private FinderObject? _selectedFinderObject;
 
     private DriverInfoService _driverInfoService = DriverInfoService.Shared;
 
