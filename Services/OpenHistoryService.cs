@@ -74,7 +74,7 @@ class OpenHistoryService
     public void SetCloseFile(string path)
     {
         _openedFilesList.RemoveAll(model => model.Path == path);
-        _recentlyOpenedFilesList.Add(new OpenHistoryItemModel(path, DateTime.Now.Date));
+        _recentlyOpenedFilesList.Add(new OpenHistoryItemModel(path, DateTime.Now));
     }
 
 

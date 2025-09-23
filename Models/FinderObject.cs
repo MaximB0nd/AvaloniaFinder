@@ -120,4 +120,14 @@ public class FinderObject : ObservableObject
             }
         }
     }
+
+    public FinderObject(FinderObject obj)
+    {
+        this.Path = obj.Path;
+    }
+
+    public FinderObject GetCopy()
+    {
+        return new FinderObject(this);
+    }
 }

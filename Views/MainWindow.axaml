@@ -26,11 +26,8 @@
                 <TreeView.ItemTemplate>
                     <TreeDataTemplate ItemsSource="{Binding SubObjects}">
                         <StackPanel Orientation="Horizontal">
-                
-                      
                             <TextBlock Text="{Binding IconPlusTitle}"/>
                         </StackPanel>
-                        
                     </TreeDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>

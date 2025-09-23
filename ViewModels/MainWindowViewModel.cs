@@ -1,5 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
+using Avalonia.Controls;
+using Avalonia.Input;
 using AvaloniaFinder.Models;
 using AvaloniaFinder.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -32,5 +37,56 @@ public partial class MainWindowViewModel : ViewModelBase
 
         SelectedDrive = _driverInfoService.GetParentDiskInfo(value);
         SelectedFinderObjectInfo = _driverInfoService.GetObjectInfo(value.Path);
+    }
+
+    public async Task OpenSelectedFinderObject()
+    {
+        var selectedFinderObject = _selectedFinderObject.GetCopy();
+
+        try
+        {
+            var process = new Process();
+            process.StartInfo = new ProcessStartInfo
+            {
+                FileName = "open",
+                Arguments = $"\"{selectedFinderObject.Path}\"",
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+            
+            process.Start();
+
+            _historyService.SetOpenFile(selectedFinderObject.Path);
+
+            await Task.Delay(3000);
+
+            while (true) {
+                if (!isFileOpened(selectedFinderObject.Path)) {
+                    _historyService.SetCloseFile(selectedFinderObject.Path);
+                    break;
+                }
+                await Task.Delay(500);
+            }
+        } catch {}
+
+        
+    }
+
+    private bool isFileOpened(string path) {
+        var process = new Process();
+        process.StartInfo = new ProcessStartInfo
+        {
+            FileName = "/usr/sbin/lsof",
+            Arguments = $"\"{path}\"",
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            CreateNoWindow = true
+        };
+
+        process.Start();
+        string output = process.StandardOutput.ReadToEnd();
+        process.WaitForExit(1000); 
+
+        return !string.IsNullOrWhiteSpace(output);
     }
 }
