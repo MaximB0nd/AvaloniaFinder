@@ -9,6 +9,7 @@ namespace AvaloniaFinder.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     private readonly DriverInfoService _driverInfoService = DriverInfoService.Shared;
+    private readonly OpenHistoryService _historyService = OpenHistoryService.Shared;
     [ObservableProperty] private ObservableCollection<FinderObject> _finderObjects;
 
     [ObservableProperty] private FinderObject? _selectedFinderObject;

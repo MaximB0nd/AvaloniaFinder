@@ -17,7 +17,7 @@
 
     <Grid ColumnDefinitions="*,300" RowDefinitions="*, *">
         <ScrollViewer Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
-            <TreeView ItemsSource="{Binding FinderObjects}" SelectedItem="{Binding SelectedFinderObject}">
+            <TreeView ItemsSource="{Binding FinderObjects}" SelectedItem="{Binding SelectedFinderObject}" DoubleTapped="OnTreeViewDoubleTapped">
                 <TreeView.Styles>
                     <Style Selector="TreeViewItem">
                         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
@@ -25,7 +25,12 @@
                 </TreeView.Styles>
                 <TreeView.ItemTemplate>
                     <TreeDataTemplate ItemsSource="{Binding SubObjects}">
-                        <TextBlock Text="{Binding Title}"/>
+                        <StackPanel Orientation="Horizontal">
+                
+                      
+                            <TextBlock Text="{Binding IconPlusTitle}"/>
+                        </StackPanel>
+                        
                     </TreeDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>

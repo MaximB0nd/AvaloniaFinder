@@ -22,7 +22,7 @@ public class FinderObject : ObservableObject
         }
     }
 
-public bool IsDirectory { get; }
+    public bool IsDirectory { get; }
     public ObservableCollection<FinderObject> SubObjects { get; } = new();
 
     private bool _isLoaded;
@@ -83,10 +83,9 @@ public bool IsDirectory { get; }
         {
             try
             {
-                //SubObjects.Add(new FinderObject(new DirectoryInfo(directory).Name));
                 SubObjects.Add(new FinderObject(directory));
             }
-             catch {}
+            catch {}
 
         }
 
@@ -99,6 +98,26 @@ public bool IsDirectory { get; }
             }
             catch {}
 
+        }
+    }
+
+    public string IconPlusTitle {
+        get {
+            if (IsDirectory)
+            {
+                if (IsExpanded)
+                {
+                    return "📂" + Title;
+                } 
+                else
+                {
+                    return "📁" + Title;
+                }
+            }
+            else
+            {
+                return "📄" + Title;
+            }
         }
     }
 }
