@@ -9,9 +9,7 @@ class DriverInfoService
 
     public static DriverInfoService Shared = new DriverInfoService();
 
-    private DriverInfoService() {
-
-    }
+    private DriverInfoService() {}
 
     public ObservableCollection<FinderObject>  GetAllDriverFinderObject() {
        var drivers = DriveInfo.GetDrives();

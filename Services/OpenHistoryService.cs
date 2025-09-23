@@ -61,7 +61,7 @@ class OpenHistoryService
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при сохранении: {ex.Message}");
+                Console.WriteLine($"{ex.Message}");
             }
         }
     }
@@ -76,6 +76,4 @@ class OpenHistoryService
         _openedFilesList.RemoveAll(model => model.Path == path);
         _recentlyOpenedFilesList.Add(new OpenHistoryItemModel(path, DateTime.Now));
     }
-
-
 }

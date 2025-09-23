@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using Avalonia.Controls;
-using Avalonia.Input;
 using AvaloniaFinder.Models;
 using AvaloniaFinder.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -61,7 +58,7 @@ public partial class MainWindowViewModel : ViewModelBase
             await Task.Delay(3000);
 
             while (true) {
-                if (!isFileOpened(selectedFinderObject.Path)) {
+                if (!IsFileOpened(selectedFinderObject.Path)) {
                     _historyService.SetCloseFile(selectedFinderObject.Path);
                     break;
                 }
@@ -72,7 +69,7 @@ public partial class MainWindowViewModel : ViewModelBase
         
     }
 
-    private bool isFileOpened(string path) {
+    private bool IsFileOpened(string path) {
         var process = new Process();
         process.StartInfo = new ProcessStartInfo
         {

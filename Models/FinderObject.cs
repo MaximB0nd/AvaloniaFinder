@@ -73,7 +73,6 @@ public class FinderObject : ObservableObject
 
         var options = new EnumerationOptions
         {
-            IgnoreInaccessible = true,
             RecurseSubdirectories = false,
             ReturnSpecialDirectories = false
         };
@@ -85,7 +84,9 @@ public class FinderObject : ObservableObject
             {
                 SubObjects.Add(new FinderObject(directory));
             }
-            catch {}
+            catch {
+                //
+            }
 
         }
 
@@ -96,8 +97,9 @@ public class FinderObject : ObservableObject
             {
                 SubObjects.Add(new FinderObject(file));
             }
-            catch {}
-
+            catch {
+                //
+            }
         }
     }
 
@@ -105,14 +107,9 @@ public class FinderObject : ObservableObject
         get {
             if (IsDirectory)
             {
-                if (IsExpanded)
-                {
-                    return "📂" + Title;
-                } 
-                else
-                {
-                    return "📁" + Title;
-                }
+                
+                return "📁" + Title;
+                
             }
             else
             {
