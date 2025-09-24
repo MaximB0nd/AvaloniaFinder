@@ -39,7 +39,7 @@ class OpenHistoryService
         lock (_lockObject)
         {
             try
-            {   Console.WriteLine(_recentlyOpenedFilesList.Count + _openedFilesList.Count);
+            {   
                 _recentlyOpenedFilesList.RemoveAll(model => model.OpenDate.AddSeconds(10) < DateTime.Now);
                 
                 var jsonObjects = new List<OpenHistoryItemModel>();
@@ -51,13 +51,13 @@ class OpenHistoryService
                 foreach (var openHistoryItemModel in _recentlyOpenedFilesList)
                 {
                     jsonObjects.Add(openHistoryItemModel);
-                    Console.WriteLine(openHistoryItemModel.OpenDate);
+                    
                 }
 
-                Console.WriteLine(jsonObjects.Count);
+                
                 string json = JsonConvert.SerializeObject(jsonObjects, Formatting.Indented);
                 System.IO.File.WriteAllText(_jsonPath, json);
-                Console.WriteLine($"Данные сохранены {DateTime.Now}");
+                
             }
             catch (Exception ex)
             {

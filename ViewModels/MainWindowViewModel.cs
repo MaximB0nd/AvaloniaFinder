@@ -65,8 +65,6 @@ public partial class MainWindowViewModel : ViewModelBase
                 await Task.Delay(500);
             }
         } catch {}
-
-        
     }
 
     private bool IsFileOpened(string path) {
